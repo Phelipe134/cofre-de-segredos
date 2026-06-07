@@ -1,0 +1,567 @@
+# PROJECT_MEMORY
+
+## Funcionalidades implementadas
+
+- Exportacao e importacao corrigidas na tela Compose de Configuracoes.
+- Causa: os blocos de acao estavam sendo associados ao slot visual `trailing` de `SettingsRow`, deixando as linhas sem callback de toque.
+- `Exportar backup` e `Importar backup` agora usam explicitamente o parametro `onClick`.
+- Exportacao abre o seletor Android, grava o payload criptografado e so informa sucesso quando o destino foi aberto corretamente.
+- Importacao usa filtro amplo `*/*` para permitir arquivos `.cofrebackup` em Downloads, Google Drive e outros provedores SAF.
+- Erros ao abrir o destino ou ler o arquivo continuam sendo exibidos de forma amigavel.
+- `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e `:app:assembleDebug` passaram.
+- APK gerado em `outputs/cofre-de-segredos-compose-backup-fix-debug.apk`.
+- Lixeira funcional implementada para cofres e segredos.
+- Exclusao normal agora move o item para arrays criptografados de lixeira em vez de apagar imediatamente.
+- Cofres excluidos preservam todos os seus segredos, icone, cor, descricao e IDs.
+- Segredos excluidos preservam o cofre de origem e podem ser restaurados ao mesmo local.
+- Se o cofre original nao existir mais, restaurar um segredo recria um cofre de recuperacao com o mesmo ID e nome.
+- Tela de Lixeira agora separa Cofres e Segredos e oferece `Restaurar` e `Apagar`.
+- `Apagar` remove definitivamente o item.
+- Itens da lixeira expiram automaticamente apos 30 dias.
+- Estrutura JSON continua retrocompativel: backups e dados antigos sem lixeira carregam arrays vazios.
+- Lixeira passa a fazer parte do backup criptografado.
+- Paleta de cores do formulario de cofre foi movida para o rodape fixo, imediatamente acima do CTA.
+- As seis cores permanecem sempre visiveis mesmo quando nome, descricao ou icones precisam de scroll.
+- Testes unitarios adicionados para restauracao de cofre, restauracao de segredo e exclusao definitiva.
+- `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e `:app:assembleDebug` passaram.
+- APK gerado em `outputs/cofre-de-segredos-compose-lixeira-paleta-debug.apk`.
+- Ajustes pos-teste Compose implementados a partir de screenshots reais do celular.
+- Escolhas de icone e cor do cofre agora sao persistidas no modelo e no JSON criptografado.
+- Dados antigos continuam compativeis por defaults `keys` e `blue`.
+- Cor selecionada atualiza imediatamente a paleta de todos os icones na tela de criacao.
+- Icone e cor escolhidos aparecem no card da Home e no cabecalho do detalhe do cofre.
+- Detalhe do segredo voltou a oferecer envio individual de login, senha, observacoes e campo adicional.
+- Botao dourado do cartao agora envia todos os campos preenchidos em sequencia.
+- Textos dos botoes do cartao foram compactados e limitados a uma linha para evitar corte com escala de fonte ampliada.
+- Titulo do segredo recebeu peso SemiBold explicito.
+- Modal de criacao passou de bottom sheet para cartao centralizado, com cantos arredondados nos quatro lados.
+- Scrim do modal reduzido para 62%, mantendo a interface e a barra flutuante perceptiveis ao fundo.
+- `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e `:app:assembleDebug` passaram.
+- APK gerado em `outputs/cofre-de-segredos-compose-ajustes-reais-debug.apk`.
+- Modal Compose corrigido para terminar acima da bottom navigation flutuante, como no screenshot de referencia do Lovable.
+- O overlay continua cobrindo toda a tela, mas o conteudo do dialog agora reserva a area da barra inferior e da navegacao do sistema.
+- Botao `Criar cofre` nao fica mais encoberto pela barra de navegacao Android.
+- APK da correcao pontual gerado em `outputs/cofre-de-segredos-compose-modal-fix-debug.apk`.
+- Revisao de fidelidade do handoff Compose concluida apos comparacao visual com as screenshots do Lovable.
+- Todas as telas Compose agora aplicam `statusBarsPadding` seguido de 24dp internos, evitando textos, busca, cabecalhos e acoes no limite fisico da tela.
+- A janela passou a usar edge-to-edge controlado pela propria UI; margens superiores e inferiores deixaram de depender do comportamento implicito do Android.
+- Titulos de paginas, dialogs e estados vazios foram ajustados para peso SemiBold, aproximando a hierarquia tipografica do Lovable.
+- Dialogs de cofre e segredo foram reestruturados com conteudo rolavel e CTA fixo em rodape independente.
+- O botao `Criar cofre`/`Salvar segredo` permanece visivel e clicavel mesmo em tela pequena, conteudo extenso, barra de navegacao ou teclado aberto.
+- Rodape dos dialogs agora respeita `navigationBarsPadding`.
+- `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e `:app:assembleDebug` passaram apos as correcoes.
+- APK revisado gerado em `outputs/cofre-de-segredos-compose-handoff-v2-debug.apk`.
+- Design handoff do Lovable aplicado com `DESIGN_SPEC.md` como fonte visual.
+- Camada de interface migrada de Views programaticas para Kotlin + Jetpack Compose.
+- `CofreDeSegredosTheme` aplicado diretamente no `setContent` da `MainActivity`.
+- Tokens `Color.kt`, `Type.kt`, `Shape.kt`, `Dimens.kt` e `Theme.kt` adicionados em `ui/theme`.
+- Fontes Outfit, Inter e JetBrains Mono incorporadas ao APK para garantir tipografia consistente sem depender de rede no dispositivo.
+- Home Compose implementada com fundo linho, eyebrow dourado, busca, grid de cofres em duas colunas e estado vazio do handoff.
+- Bottom navigation flutuante implementada com Cofres, Buscar, adicionar, Configuracoes e Lixeira.
+- Detalhe do cofre implementado com avatar, descricao, contador, acoes circulares e lista compacta de segredos.
+- Detalhe do segredo implementado com cartao escuro de 32dp, senha mono, revelar, copiar e CTA dourado `Enviar ao PC`.
+- Busca dedicada, lixeira vazia e configuracoes por secoes replicadas conforme as screenshots.
+- Dialogos de novo cofre e novo segredo migrados para modais inferiores Compose com altura adaptativa e campos opcionais recolhidos.
+- Criptografia, biometria, backup, armazenamento, dominio e transmissao USB permaneceram conectados as implementacoes existentes.
+- Compatibilidade com dados atuais preservada; modelos e formato persistido nao foram alterados.
+- `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e `:app:assembleDebug` executados com sucesso apos a migracao.
+- APK Compose gerado em `outputs/cofre-de-segredos-compose-handoff-debug.apk`.
+- Sprint UI 5.1 concluida com correcoes praticas de consistencia e densidade na `MainActivity`.
+- Emojis coloridos removidos da interface ativa; listas agora usam iniciais monocromaticas e acoes usam texto curto.
+- Botao voltar reduzido para 36dp e integrado ao cabecalho; configuracoes virou a acao discreta `Ajustes`.
+- Margem global de 24dp preservada em todas as telas, mantendo cabecalhos, cards e acoes fora das extremidades.
+- Home compactada: `Todas as credenciais` agora e uma linha de navegacao secundaria e `Nova credencial` permanece como criacao principal.
+- Cards de credencial reduzidos de 78dp para 68dp, com padding menor e icone de 40dp.
+- Cards de categoria reduzidos de 104dp para 94dp.
+- Na tela de credencial, `Favoritar` e `Mais` foram movidos para uma faixa discreta no topo.
+- `Enviar senha para PC` permanece isolado como unica acao principal verde da tela.
+- Botoes `Copiar` e `Mostrar` foram reduzidos para 36dp e mantidos como acoes neutras.
+- Observacoes e campo personalizado deixaram de exibir botoes verdes individuais; continuam recolhidos em informacoes adicionais.
+- Formulario de nova credencial continua iniciando somente com titulo, login e senha.
+- Botao de mostrar senha e controle de informacoes opcionais foram compactados.
+- Dialogos rolaveis agora medem o conteudo ate um limite maximo, evitando area vazia quando os opcionais estao fechados e corte quando abertos.
+- Nenhuma alteracao realizada em criptografia, biometria, backup, USB, protocolo, armazenamento, modelos ou regras de negocio.
+- `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e `:app:assembleDebug` executados com sucesso.
+- APK da Sprint UI 5.1 gerado em `outputs/credenciais-sprint-ui-5-1-debug.apk`.
+- Simplificacao de produto concluida para reduzir conceitos e acoes simultaneas.
+- Nomenclatura visivel padronizada: itens sao `Credenciais` e organizacao usa `Categorias`.
+- Nome exibido do aplicativo alterado para `Credenciais`; termos `Cofre` e `Segredo` permanecem apenas internamente para compatibilidade.
+- Categorias removidas completamente da home e movidas para Configuracoes.
+- Home agora mostra somente busca, Recentes, Favoritos quando existirem, Todas as credenciais, Nova credencial e Configuracoes.
+- Criacao de credencial abre diretamente nos campos Titulo, Login e Senha, sem selecao previa de categoria.
+- Categoria foi movida para o bloco recolhido de informacoes opcionais junto com observacoes e campo personalizado.
+- Quando nenhuma categoria existe, a categoria interna `Geral` e criada automaticamente para nao bloquear a jornada principal.
+- Detalhe da credencial manteve uma unica acao principal `Enviar senha para PC`.
+- Acoes redundantes de enviar foram removidas dos blocos essenciais de Login e Senha; permanecem Copiar e Mostrar.
+- Observacoes, campo personalizado e envio de todos os campos continuam recolhidos em `Mais informacoes`.
+- Editar e excluir permanecem dentro de `Mais`.
+- Margem global mantida em 24dp e largura dos modais corrigida para garantir 24dp em cada lateral.
+- Manifesto e mensagens acessiveis atualizados para a nomenclatura final.
+- Testes unitarios, compilacao dos instrumentados e APK debug executados com sucesso.
+- APK simplificado gerado em `outputs/credenciais-produto-simplificado-debug.apk`.
+- Arquitetura de produto orientada a credenciais implementada de forma real apos auditoria contra o documento de UX.
+- Home deixou de exibir categorias/cofres como conteudo principal e agora prioriza busca, Recentes, Favoritos e acesso a todas as credenciais.
+- Busca global usa titulo, login, observacoes, campo personalizado e categoria.
+- Secao Recentes adicionada, alimentada ao abrir uma credencial.
+- Secao Favoritos adicionada, com persistencia por IDs e sem duplicar dados sensiveis.
+- `CredentialActivityStore` criado para guardar somente IDs recentes/favoritos em armazenamento nao sensivel.
+- Tela `Todas as credenciais` adicionada com busca propria e acesso direto aos detalhes.
+- Categorias foram movidas para uma tela secundaria de organizacao.
+- Criacao pela home agora usa `Nova credencial` e solicita a categoria antes de abrir o formulario.
+- Detalhe da credencial agora prioriza `Enviar senha para PC`, transmitindo somente a senha mediante confirmacao especifica.
+- Login e senha permanecem visiveis no primeiro nivel do detalhe; observacoes e campo personalizado iniciam recolhidos.
+- Envio de todos os campos foi movido para a secao adicional recolhida.
+- Favoritar e menu `Mais` foram adicionados ao final do detalhe.
+- Editar e excluir credencial foram movidos para o menu secundario `Mais`.
+- Campos opcionais do formulario de nova credencial iniciam recolhidos.
+- Nenhuma senha, login, observacao ou campo personalizado e armazenado no historico de Recentes/Favoritos.
+- Testes unitarios, compilacao dos instrumentados e APK debug executados com sucesso.
+- APK da implementacao da arquitetura de produto gerado em `outputs/cofre-de-segredos-arquitetura-produto-debug.apk`.
+- Sprint UI 4.0 concluida com polimento visual profissional, sem alteracoes funcionais.
+- Margens globais padronizadas em 24dp nas laterais e no topo, com 32dp no encerramento das telas.
+- Cabecalhos transformados em componentes consistentes com assinatura verde, titulo, metadado, navegacao integrada e divisor inferior.
+- Botoes voltar e configuracoes mantidos em 40dp, sem fundos flutuantes e alinhados ao cabecalho.
+- Escala tipografica refinada: cabecalhos em 22sp, corpo em 14sp, metadados em 13sp e rotulos em 11-12sp.
+- Campos de entrada padronizados em 56dp de altura e padding lateral de 16dp.
+- Dialogos de criar/editar cofre e segredo foram completamente redesenhados como superficies unicas customizadas.
+- Novos dialogos possuem titulo, subtitulo, formulario e rodape integrados, fundo transparente externo, dim controlado e largura responsiva.
+- Dialogo de segredo usa area rolavel limitada para funcionar em telas pequenas sem cortar acoes.
+- Validacoes e operacoes originais de salvar/cancelar foram preservadas; IDs de campos permaneceram intactos.
+- Tema Android alinhado a paleta do app com fundo `#121212` e accent `#22C55E`.
+- Testes unitarios, compilacao dos instrumentados e APK debug executados com sucesso.
+- APK da Sprint UI 4.0 gerado em `outputs/cofre-de-segredos-sprint-ui-4-0-debug.apk`.
+- Sprint UX 3.1 concluida com revisao de produto focada em densidade, hierarquia e organizacao.
+- Tela de detalhe deixou de usar um card por campo; login, senha, observacoes e campo personalizado agora formam uma unica ficha com divisores internos.
+- Acoes por campo foram reduzidas para botoes compactos alinhados a direita.
+- `Enviar tudo para PC` permanece como unica acao de largura total e prioridade maxima.
+- Editar e excluir segredo foram reduzidos para acoes compactas no final da tela.
+- Cabecalhos foram compactados: voltar e configuracoes agora usam 40dp sem fundo de botao, titulo foi reduzido e metadados ficaram mais discretos.
+- Configuracoes foram convertidas de cards explicativos longos para uma lista unica com titulo, status curto e acao compacta.
+- Textos extensos e painel tecnico de protecao foram removidos da tela de configuracoes.
+- Estrutura simplificada de configuracoes elimina a causa provavel de sobreposicao/clipping do titulo de secao `Acesso`.
+- Nenhuma alteracao realizada em criptografia, biometria, backup, protocolo USB, hardware ou regras de negocio.
+- Testes unitarios, compilacao dos instrumentados e APK debug executados com sucesso.
+- APK da Sprint UX 3.1 gerado em `outputs/cofre-de-segredos-sprint-ux-3-1-debug.apk`.
+- `FLAG_SECURE` removido por solicitacao do usuario; screenshots e gravacao de tela agora sao permitidos.
+- Consequencia documentada: o conteudo do aplicativo tambem pode aparecer no preview da multitarefa.
+- Sprint UX/UI 3.0 concluida com foco em divulgacao progressiva e reducao de carga cognitiva.
+- Fluxo principal consolidado em tres niveis: lista de cofres -> lista de segredos -> detalhe do segredo.
+- Home deixou de exibir bloqueio e acoes administrativas; mostra somente identidade, resumo, busca, cofres e criacao.
+- Botao `Novo cofre` foi movido para depois da lista, seguindo o fluxo natural de leitura.
+- Cards de cofre foram reduzidos para nome, quantidade de segredos e descricao resumida, sem botoes visiveis.
+- Edicao e exclusao de cofre foram movidas para menu contextual por pressao longa no card ou cabecalho do cofre.
+- Bloqueio manual foi movido para Configuracoes, mantendo a home focada no conteudo.
+- Tela do cofre deixou de mostrar descricao, editar cofre e bloquear; agora contem apenas nome, quantidade, busca, lista e `Novo segredo`.
+- Botao `Novo segredo` foi movido para depois da lista.
+- Lista de segredos permanece compacta e nao revela senha, observacoes ou campos personalizados.
+- Detalhe do segredo foi reordenado: campos e acoes individuais primeiro; `Enviar tudo`, editar e excluir somente ao final.
+- Nenhuma alteracao realizada em criptografia, biometria, backup, USB, hardware, armazenamento, models, services, validacoes ou regras de negocio.
+- Testes unitarios, compilacao de testes instrumentados e APK debug passaram com sucesso.
+- APK da Sprint UX/UI 3.0 gerado em `outputs/cofre-de-segredos-sprint-ux-ui-3-0-debug.apk`.
+- Sprint UI 2.0 concluida com reforma visual profissional da `MainActivity`, sem alterar regras de negocio ou camadas de seguranca, dados e hardware.
+- Paleta oficial aplicada: fundo `#121212`, cards `#1E1E1E`, verde `#22C55E`, vermelho `#EF4444`, texto `#FFFFFF`, texto secundario `#A1A1AA` e bordas `#2A2A2A`.
+- Tela de login simplificada e centralizada, com identidade do produto, mensagem de protecao local e foco no desbloqueio.
+- Tela principal agora mostra resumo total de cofres e segredos e possui busca global visivel por segredos.
+- Busca global reutiliza `VaultService.searchSecrets` em cada cofre e abre diretamente o detalhe do resultado.
+- Cards de cofres foram padronizados com altura fixa, icone, nome, quantidade, descricao resumida e acoes compactas.
+- Lista de segredos foi reduzida para cards compactos com titulo e login; dados completos deixaram de poluir a listagem.
+- Nova tela visual de detalhe do segredo criada dentro da `MainActivity`, preservando os mesmos dados, callbacks e IDs funcionais.
+- Detalhe do segredo organiza login, senha, observacoes e campo personalizado em blocos independentes.
+- Acao `Enviar para PC` recebeu prioridade visual verde; copiar permanece neutro e excluir usa tratamento destrutivo vermelho.
+- Senha continua oculta por padrao e pode ser revelada apenas na tela de detalhe.
+- Navegacao de retorno do detalhe leva ao cofre de origem; configuracoes continuam em tela dedicada.
+- Teste instrumentado de fluxo atualizado somente para acompanhar a nova navegacao visual lista -> detalhe.
+- `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e `:app:assembleDebug` executados com sucesso.
+- APK da Sprint UI 2.0 gerado em `outputs/cofre-de-segredos-sprint-ui-2-0-debug.apk`.
+- `UsbPasswordTransmitter` reescrito para o protocolo HID serial real do firmware em `115200` baud.
+- Cada pacote serial agora usa `0xAA + tipo + payload + checksum XOR`, calculado sobre os tres bytes anteriores.
+- Texto e transmitido caractere por caractere com comandos `KEY_DOWN` (`0x01`) e `KEY_UP` (`0x02`) e intervalo de 20 ms entre teclas.
+- Letras maiusculas usam comando `MODIFIER` (`0x03`) com Shift esquerdo (`0x02`) antes da tecla e limpeza (`0x00`) depois.
+- Mapeamento HID implementado para letras, numeros, espaco e Enter; caracteres fora da tabela sao rejeitados com mensagem amigavel.
+- Interface publica `sendPassword` e `release` preservada; `sendValues` tambem foi mantido para compatibilidade com o envio atual de campos.
+- Sprint UI 1.0 concluida com reformulacao visual integral da `MainActivity`, mantendo a UI programatica em Kotlin.
+- Configuracoes foram removidas da tela principal e transferidas para uma tela dedicada, acessada pelo icone de engrenagem no canto superior direito.
+- Tela de configuracoes agora explica o objetivo e o impacto de biometria, exportacao de backup e importacao de backup.
+- IDs e callbacks originais das configuracoes foram preservados para manter compatibilidade funcional e com testes.
+- Hierarquia das telas de autenticacao, lista de cofres e detalhes do cofre foi reorganizada com titulos, secoes e acoes prioritarias mais claras.
+- Cards de cofres mantem altura uniforme e agora usam espacamento, contraste, raio e botoes compactos consistentes.
+- Cards de segredos foram reorganizados para separar identificacao, gerenciamento, envio completo e acoes individuais por campo.
+- Campos de segredo agora exibem valor e acoes em linhas verticais responsivas, evitando compressao horizontal em telas pequenas.
+- Busca recebeu secao propria e texto de apoio mais explicito.
+- Formularios de segredo receberam rotulos persistentes e espacamento consistente sem alterar IDs, validacoes ou fluxo de salvamento.
+- Nova paleta visual neutra adicionada com verde para acoes principais e vermelho reservado para exclusoes.
+- Nenhuma alteracao foi feita em criptografia, biometria, backup, USB, hardware, armazenamento, modelos ou servicos.
+- Testes `:app:testDebugUnitTest`, `:app:compileDebugAndroidTestKotlin` e build `:app:assembleDebug` executados com sucesso.
+- APK da Sprint UI 1.0 gerado em `outputs/cofre-de-segredos-sprint-ui-1-0-debug.apk`.
+- Integracao final do protocolo validado no hardware aplicada ao app principal.
+- Botao "Enviar para PC" agora transmite o pacote `0xAA + 0x01 + tamanho UTF-8 + senha UTF-8`.
+- Baud rate do envio real alterado para `9600`, conforme firmware CircuitPython validado no RP2040-Zero.
+- Interface principal foi limpa: secoes "Diagnostico USB" e "Teste de Hardware" foram removidas do app de uso real.
+- O POC `cp2102-serial-proof` permanece separado para testes de bancada e engenharia reversa.
+- Sprint Final de validacao para hardware externo concluida.
+- Secao "Debug Serial" evoluida para "Teste de Hardware", focada em validar Android -> USB OTG -> CP2102 -> UART -> RP2040 -> USB HID -> PC.
+- Campo de payload manual adicionado para testes com texto livre falso.
+- Botoes finais adicionados: enviar texto, enviar com Enter (`\r\n`), enviar lento, enviar protocolo `AA FF 55`, enviar senha de teste fixa.
+- Painel de logs internos visivel no app adicionado ao relatorio do Teste de Hardware.
+- Logs exibem eventos de dispositivo/permissao/porta/payload/bytes/erro/fechamento e usam apenas payloads falsos na tela de teste.
+- APK final de validacao gerado em `outputs/cofre-de-segredos-hardware-test-final.apk`.
+- Sprint 6.1 de debug da comunicacao serial implementada.
+- Secao "Debug Serial" adicionada na tela principal para diagnosticar a cadeia Android -> CP2102 -> UART -> RP2040 -> USB HID -> PC.
+- Debug Serial mostra USB Host disponivel, dispositivos USB, VID/PID, nome do dispositivo, drivers seriais, portas seriais, porta selecionada, baud rate, data bits, stop bits, parity, permissao USB, status de abertura, bytes enviados, payload de teste e erro completo.
+- Botoes adicionados: atualizar dispositivos, solicitar permissao USB, abrir porta, enviar teste simples, enviar teste com Enter, enviar teste lento caractere por caractere e fechar porta.
+- Seletor simples de baud rate adicionado para 9600, 57600 e 115200, com 115200 como padrao.
+- Payloads falsos de teste adicionados: `TESTE_COFRE_123`, `ABC123\n` e `senha-teste-2026`.
+- Sprint 6 de envio de senha do cofre para o PC implementada.
+- Botao "Enviar para PC" adicionado na visualizacao de cada segredo.
+- Fluxo de confirmacao "Enviar senha para o computador?" adicionado antes de qualquer transmissao.
+- Camada `UsbPasswordTransmitter` criada em `hardware/` para enviar somente o campo senha por USB serial/CDC quando houver driver compativel.
+- O texto fixo `TESTE_COFRE_123` foi removido do codigo Android principal; o envio agora usa a senha do segredo selecionado.
+- Diagnostico USB bruto da Sprint 5.2 foi mantido para apoiar testes de hardware.
+- Sprint 5.2 de diagnostico USB bruto concluida.
+- A tela de hardware agora lista exclusivamente o conteudo cru de `UsbManager.deviceList`, sem filtro, sem tentativa de serial e sem envio de dados.
+- Diagnostico mostra suporte declarado a USB Host, quantidade de dispositivos, `deviceName`, fabricante, produto, VID/PID, classe, subclasse, protocolo e quantidade de interfaces.
+- Para cada interface USB, o app mostra id, classe, subclasse, protocolo e quantidade de endpoints.
+- Para cada endpoint, o app mostra address, direction, type e maxPacketSize.
+- Botao "Atualizar diagnostico USB" adicionado para reler `UsbManager.deviceList` em tempo real.
+- Mensagem tecnica adicionada para o caso em que o Android mostra teclado fisico conectado, mas `UsbManager.deviceList` vem vazio para o app.
+- Sprint 5.1 de correcao da arquitetura real do hardware concluida.
+- Camada de hardware corrigida para assumir a montagem real: Android -> RP2040 -> UART soldado -> CP2102 -> PC.
+- Suposicao rigida de CP2102 conectado ao Android removida da UI e do codigo principal.
+- Diagnostico USB generico implementado: lista dispositivos conectados, nome, Vendor ID, Product ID, classe USB, interfaces e endpoints.
+- Deteccao de tipo provavel adicionada para CDC Serial, HID e dispositivo composto.
+- Envio de `TESTE_COFRE_123\n` permanece disponivel apenas quando o dispositivo exposto ao Android tiver porta serial CDC/USB compativel.
+- Quando o dispositivo parece HID, o app explica a limitacao e orienta expor CDC Serial ou definir protocolo proprio no firmware.
+- Sprint 5 de comunicacao Android -> CP2102 iniciada e entregue.
+- Camada `hardware/` criada para isolar deteccao USB Host/OTG, permissao USB, identificacao de dispositivo serial e envio pela serial.
+- Tela principal recebeu a secao "Conexao com PC" com status USB, dispositivo, VID/PID, baud rate, permissao, botao "Testar conexao" e botao "Enviar teste".
+- Envio serial de teste implementado com o payload fixo `TESTE_COFRE_123\n`; nenhum segredo real e enviado nesta sprint.
+- Suporte a CP2102/CP21xx adicionado por meio da biblioteca `usb-serial-for-android`.
+
+- Sprint 4.2 de correções pós-teste real concluída.
+- Biometria migrada da API de plataforma `android.hardware.biometrics.BiometricPrompt` para `androidx.biometric.BiometricPrompt`.
+- Verificação de disponibilidade biométrica adicionada com `BiometricManager.canAuthenticate()`.
+- Tratamento adicionado para dispositivo sem biometria, biometria sem cadastro, hardware indisponível, cancelamento e erro desconhecido.
+- Permissões `USE_BIOMETRIC` e `USE_FINGERPRINT` adicionadas ao manifesto.
+- `FLAG_SECURE` adicionado para bloquear screenshots, gravação de tela e preview do app no multitarefa.
+- Clipboard agora é limpo automaticamente 30 segundos após copiar campos, com aviso ao usuário.
+- Layout ajustado com botões mais confortáveis, ações empilhadas em telas com muitos botões e espaçamentos mais consistentes.
+- Sprint 4.1 de testes e validação concluída.
+- IDs estáveis adicionados aos principais controles da UI para permitir testes instrumentados com Espresso.
+- Testes instrumentados Android criados para fluxo de senha mestre/login/fallback por senha, criação e edição de cofre, criação e edição de segredo, busca e revelar/ocultar senha.
+- Testes instrumentados de storage criados para exportação/importação de backup, integridade dos dados restaurados, bloqueio após importação e rejeição de backup inválido.
+- Checklist manual `CHECKLIST_TESTE_MANUAL.md` criado com passos para biometria, exportação/importação, segundo plano, multitarefa, screenshots/preview e clipboard.
+- AndroidX Test/Espresso configurado para testes instrumentados.
+- Sprint 4 de segurança, biometria e backup criptografado concluída.
+- Desbloqueio por biometria adicionado usando `android.hardware.biometrics.BiometricPrompt` em Android 9+.
+- Ativação de biometria adicionada na tela principal após login com senha mestre.
+- Senha mestre continua sendo a raiz da criptografia; biometria apenas recupera uma cópia criptografada no Android Keystore para facilitar desbloqueio.
+- Opção de revelar/ocultar senha adicionada na visualização de segredos.
+- Opção de revelar/ocultar senha adicionada nos formulários de criação e edição de segredo.
+- Exportação de backup criptografado adicionada via seletor de arquivos Android.
+- Importação de backup criptografado adicionada via seletor de arquivos Android, com validação de estrutura e versão.
+- Formato de backup `.cofrebackup` definido, contendo envelope criptografado (`salt`, `verifier`, `vaultData`) e metadados, sem dados sensíveis em texto puro.
+- `BackupPayload` criado para serializar e validar backups.
+- `BiometricMasterKeyStore` criado para armazenar a senha mestre criptografada via Android Keystore.
+- Testes unitários ampliados para exportação/importação de backup, compatibilidade e integridade de envelope criptografado.
+- Sprint 3 de edição e busca concluída.
+- Cofres existentes agora podem ser editados sem alterar ID nem segredos vinculados.
+- Campo opcional `description` adicionado ao modelo `Vault`, com compatibilidade para cofres antigos sem esse campo.
+- Segredos existentes agora podem ser editados sem criar duplicatas.
+- Busca em tempo real implementada dentro da tela do cofre.
+- Busca localiza segredos por título, login, observações, nome do campo personalizado e valor do campo personalizado.
+- Botões "Editar" adicionados aos cards de cofre e segredo.
+- Campo de busca visível adicionado à tela de detalhes do cofre.
+- Testes unitários adicionados para edição de cofre, edição de segredo, busca e compatibilidade com JSON antigo.
+- Sprint 2 de refatoração arquitetural concluída.
+- Modelos Kotlin próprios criados para `Vault`, `Secret`, `VaultData` e `VaultSettings`.
+- Camada `crypto/` criada com `CryptoManager` para derivação de chave, AES-GCM, validação de senha mestre e utilidades Base64/bytes.
+- Camada `storage/` criada com `VaultStorage`, isolando `SharedPreferences` e mantendo compatibilidade com as chaves atuais (`salt`, `verifier`, `vaultData`).
+- Camada `domain/` criada com `VaultService`, concentrando criação/exclusão de cofres, criação/exclusão de segredos e validações de negócio.
+- Camada `ui/` criada com `MainActivity`, removendo manipulação direta de `JSONObject`, `SharedPreferences` e criptografia da interface.
+- Projeto Android nativo criado com módulo `app`.
+- `MainActivity` Kotlin nativa implementada com fluxo de primeiro acesso, login, lista de cofres e detalhe de cofre.
+- APK debug Android gerado com sucesso via Gradle.
+- Layout Android nativo melhorado com tela de login em painel, marca visual, cards com hierarquia, badges informativos, blocos de campos para segredos e paleta mais polida.
+- Base inicial do app web compatível com Android criada em `work/app`.
+- Primeiro acesso com criação e confirmação de senha mestre.
+- Acessos futuros com desbloqueio por senha mestre.
+- Entrada automática no cofre após criação da senha mestre.
+- Lista de múltiplos cofres com criação e exclusão.
+- Cada cofre possui seu próprio array de segredos, identificado por `vault.id`.
+- Tela de detalhes do cofre com criação e exclusão de segredos.
+- Campos iniciais de segredo: título, usuário/login, senha, observações e campo adicional livre.
+- Botões rápidos para copiar login, senha, observação e campo personalizado.
+- Configuração de bloqueio automático por inatividade.
+- Botão de bloqueio/logout rápido.
+- Manifest PWA inicial para instalação futura em Android.
+- Teste de fumaça Playwright criado em `work/smoke-test.mjs` para validar fluxo principal quando um navegador de teste estiver disponível.
+
+## Bugs corrigidos / prevenidos
+
+- Corrigido envio real que anteriormente escrevia apenas os bytes crus da senha sem o cabecalho esperado pelo firmware.
+- Corrigido baud rate do envio real de 115200 para 9600.
+- Senhas com payload UTF-8 acima de 255 bytes sao recusadas, evitando truncamento do campo de tamanho de um byte.
+- Painel e controles experimentais nao aparecem mais para usuarios do app principal.
+- Buffers temporarios do payload e do pacote serial sao zerados ao final da operacao.
+- Teste de Hardware permite validar manualmente o protocolo `AA FF 55` sem depender de senha real do cofre.
+- Buffers temporarios dos payloads de teste sao copiados por envio e zerados apos sucesso ou erro.
+- Botao "Enviar para PC" do segredo foi mantido com confirmacao e continua sem registrar senha real em logs/historico.
+- Envio com Enter passou a usar `\r\n`, formato mais comum para firmwares seriais que aguardam fim de linha.
+- Sprint 6.1 separa diagnostico serial de envio de senha real, permitindo investigar a falha sem usar dados do cofre.
+- Debug Serial registra no proprio painel a diferenca entre driver encontrado, permissao concedida, porta aberta e bytes escritos.
+- Porta serial aberta pelo debug e fechada explicitamente pelo botao "Fechar porta" ou ao destruir a Activity.
+- Envio para PC nao envia login, observacoes nem campo personalizado; somente `secret.password`.
+- Operacao de envio exige confirmacao explicita e nao salva historico de envios.
+- Buffer `ByteArray` usado na transmissao USB e zerado apos a escrita ou falha.
+- Falhas de dispositivo ausente, permissao USB negada, falta de porta serial e erro de transmissao sao tratadas com mensagens amigaveis.
+- Corrigido o diagnostico que ainda interpretava/discriminava CDC/HID antes de mostrar o resultado bruto.
+- Removido da tela da Sprint 5.2 qualquer caminho que pudesse pedir permissao USB, abrir porta serial ou enviar `TESTE_COFRE_123`.
+- A diferenca entre dispositivo reconhecido como teclado pelo sistema e dispositivo exposto ao app via USB Host API agora e explicitada na UI.
+- Corrigida a premissa incorreta da Sprint 5: o celular nao esta conectado ao CP2102; ele esta conectado ao RP2040.
+- A mensagem "Nenhum CP2102/dispositivo serial USB suportado conectado" foi substituida por diagnostico generico de dispositivo USB.
+- Removido filtro/priorizacao rigida de Silicon Labs/CP2102 na deteccao do Android.
+- O app agora distingue "USB conectado sem driver serial" de "nenhum USB conectado", ajudando o teste real do RP2040.
+- Erros de USB/serial agora sao tratados com mensagens amigaveis: sem USB Host/OTG, sem dispositivo, dispositivo nao suportado, permissao negada, falha ao abrir porta e erro de escrita.
+- UI nao acessa `UsbManager` diretamente; isso reduz risco de regressao ao evoluir a integracao CP2102/RP2040.
+- A Sprint 5 impede envio acidental de senha real porque a UI exposta envia somente o texto fixo de teste.
+
+- Corrigida causa provável do crash de biometria: uso direto da API de plataforma sem checagem robusta de disponibilidade/cadastro e sem camada de compatibilidade AndroidX.
+- Fluxo de biometria agora falha de forma segura e retorna para senha mestre sem fechar o app.
+- Dispositivos sem biometria ou sem cadastro exibem mensagem amigável.
+- Cancelamento da biometria mantém fallback por senha mestre.
+- Clipboard não fica indefinidamente com login/senha/campo sensível copiado pelo app.
+- `FLAG_SECURE` reduz exposição casual em screenshots, gravação de tela e app switcher.
+- Configuração `android.useAndroidX=true` adicionada para permitir uso correto de AndroidX Test.
+- Instrumentação revelou limitação do ambiente atual: não há dispositivo/emulador conectado para executar `connectedDebugAndroidTest`.
+- Backup exportado preserva os dados criptografados existentes em vez de descriptografar e reserializar segredos em texto puro.
+- Importação valida `app`, `backupVersion`, `salt`, `verifier` e `vaultData`, reduzindo risco de corrupção silenciosa.
+- Ao importar backup, a sessão é bloqueada e a biometria local é desativada para evitar credencial biométrica incompatível com a senha mestre do backup.
+- Revelar senha volta ao estado oculto ao recriar/fechar a tela.
+- Edição de segredo preserva o ID do segredo e substitui o item existente, evitando duplicatas.
+- Edição de cofre preserva o ID do cofre e a lista de segredos.
+- Busca foi implementada no `VaultService`, evitando lógica de filtro diretamente acoplada à UI.
+- Compatibilidade com dados antigos foi validada para cofres sem `description`.
+- Refatoração preservou o formato JSON existente para evitar quebra de dados já salvos em versões anteriores.
+- Interface deixou de acessar persistência e criptografia diretamente, reduzindo risco de regressões ao adicionar backup, sincronização, biometria ou integração com hardware.
+- Após criar um cofre, a lista é re-renderizada imediatamente e o app continua funcional sem precisar fechar e reabrir.
+- Cofres diferentes não compartilham segredos: cada segredo é salvo dentro do objeto do cofre ativo.
+- Cards de cofres têm altura fixa, texto com limite visual e `overflow: hidden`, impedindo crescimento indefinido.
+- Na versão Android nativa, os cards de cofre usam altura fixa em `dp`, e os segredos continuam armazenados dentro do JSON do cofre correspondente.
+- Melhoria visual aplicada sem alterar a separação de dados entre cofres nem o fluxo de bloqueio/desbloqueio.
+
+## Decisões de arquitetura
+
+- O contrato serial oficial do app principal passa a ser: start `0xAA`, comando digitar `0x01`, tamanho de 1 byte e payload UTF-8.
+- `UsbPasswordTransmitter` e a unica classe mantida em `hardware/` no app principal.
+- `RawUsbDiagnostics` e `SerialDebugSession` foram removidas do app principal; experimentos continuam apenas no POC separado.
+- Criptografia, biometria, backup, modelos e dominio nao foram alterados nesta integracao.
+- A versao final de validacao mantem `SerialDebugSession` como ferramenta de hardware e `UsbPasswordTransmitter` como caminho do envio real do cofre.
+- O Teste de Hardware nao toca em criptografia, biometria, backup, edicao ou busca.
+- Logs internos foram colocados no painel visivel do app em vez de logs Android, evitando vazamento de senha real em Logcat.
+- O protocolo `AA FF 55` foi implementado apenas como payload de teste falso: bytes `0xAA 0xFF 0x55` seguidos de `TESTE_COFRE_123`.
+- `SerialDebugSession` foi criada como sessao stateful de diagnostico, separada de `UsbPasswordTransmitter`.
+- A Sprint 6.1 usa a biblioteca `usb-serial-for-android` apenas com payloads falsos e nao toca nos dados do cofre.
+- O debug mantem a porta aberta entre botoes para permitir testar baud rates e formatos de envio de forma controlada.
+- Relatorio de debug e exibido na UI em vez de logs de sistema, evitando registrar senhas reais e facilitando copiar/inspecionar resultados.
+- Sprint 6 separou transmissao real de senha em `UsbPasswordTransmitter`, mantendo `RawUsbDiagnostics` apenas para investigacao.
+- A UI nao acessa `UsbManager` nem `UsbSerialPort`; ela apenas confirma a acao e chama a camada `hardware`.
+- O envio usa a primeira porta serial USB reconhecida por `usb-serial-for-android`; se o RP2040 aparecer apenas como HID, o envio e recusado com mensagem explicativa.
+- O payload de Sprint 6 nao adiciona login, metadados, historico ou logs; a camada transmite apenas bytes UTF-8 da senha.
+- Sprint 5.2 criou `RawUsbDiagnostics`, uma camada temporaria e intencionalmente simples para investigacao bruta de USB.
+- Nesta sprint, a UI usa somente `RawUsbDiagnostics.buildReport()`; nao usa `usb-serial-for-android`, `UsbSerialProber`, permissao USB ou abertura de endpoints.
+- A dependencia `usb-serial-for-android` permanece no projeto para retomada posterior, mas ficou fora do fluxo de diagnostico bruto.
+- A camada `hardware/` foi renomeada conceitualmente de conexao CP2102 para conexao USB do dispositivo conectado ao Android.
+- `UsbDeviceConnectionManager` substitui `Cp2102SerialManager`, removendo acoplamento ao conversor Silicon Labs.
+- `UsbConnectionStatus` substitui `PcConnectionStatus` e passa a carregar um relatorio diagnostico completo.
+- O CP2102 permanece relevante na montagem fisica, mas agora e tratado como o conversor UART do lado do PC, nao como dispositivo USB do Android.
+- VID/PID esperado para RP2040 depende do firmware. Referencias comuns: Vendor ID Raspberry Pi `0x2E8A`; Pico SDK CDC UART RP2040 `0x000A`; bootloader RP2040 `0x0003`.
+- A integracao USB do hardware ficou em `com.cofredesegredos.hardware`, separada de `crypto`, `storage`, `domain` e `ui`.
+- Foi usada a Android USB Host API para enumerar dispositivos e solicitar permissao, conforme a arquitetura oficial Android.
+- Foi adicionada a dependencia `com.github.mik3y:usb-serial-for-android:3.10.0` via JitPack para usar drivers seriais ja maduros, incluindo CP2102/CP21xx.
+- O baud rate inicial foi definido como 115200, comum para firmware serial; ele foi centralizado em constante para futura configuracao pela UI.
+- A quebra de linha foi mantida no envio de teste para facilitar parse do firmware no RP2040.
+
+- `androidx.biometric:biometric:1.1.0` foi adicionada para robustez e compatibilidade de biometria entre versões/OEMs.
+- `MainActivity` passou a herdar de `FragmentActivity`, requisito do `androidx.biometric.BiometricPrompt`.
+- A biometria continua sendo uma conveniência de desbloqueio e não altera o modelo criptográfico do cofre.
+- A limpeza de clipboard fica na UI porque é uma consequência direta da ação de copiar.
+- Testes instrumentados usam IDs em `res/values/ids.xml`, evitando depender apenas de textos visíveis.
+- Testes de backup foram divididos entre validação de storage/dominio e checklist manual de Storage Access Framework real.
+- Biometria permanece no checklist manual porque exige hardware/biometria do dispositivo ou infraestrutura de emulador preparada.
+- Backup criptografado foi implementado na camada `storage`, mantendo a criptografia existente intacta.
+- O domínio expõe `exportBackup()` e `importBackup()` sem conhecer detalhes de arquivo/Android URI.
+- A UI usa o seletor de documentos Android para salvar/restaurar arquivos, mantendo a responsabilidade de arquivo fora do domínio.
+- Biometria foi implementada como conveniência de desbloqueio, não como substituta da senha mestre.
+- A implementação biométrica atual usa Android Keystore para criptografar a senha mestre armazenada para conveniência; a autenticação biométrica atua como barreira de acesso no fluxo do app.
+- Nenhuma dependência runtime nova foi adicionada para biometria; foi usada a API Android disponível no SDK.
+- A descrição de cofre foi adicionada como campo opcional em `Vault`, usando `optString("description")` para manter compatibilidade com dados antigos.
+- Regras de edição e busca foram adicionadas ao `VaultService`, mantendo a UI como camada de apresentação.
+- Foi criada a interface `VaultRepository` para permitir testes unitários do domínio sem depender de Android/SharedPreferences.
+- `VaultStorage` passou a implementar `VaultRepository`.
+- Dependências de teste `junit:junit:4.13.2` e `org.json:json:20240303` foram adicionadas apenas para testes locais.
+- Arquitetura Android foi separada em pacotes por responsabilidade: `models`, `crypto`, `storage`, `domain` e `ui`.
+- `MainActivity` foi movida para `com.cofredesegredos.ui` e o manifesto foi atualizado para `.ui.MainActivity`.
+- O storage continua usando o mesmo nome de `SharedPreferences` e as mesmas chaves para manter compatibilidade com instalações anteriores.
+- O domínio trabalha com modelos Kotlin e persiste alterações por meio de `VaultStorage`, evitando `JSONObject` na UI.
+- `VaultData.toJson()` e `VaultData.fromJson()` preservam o contrato de dados atual, preparando uma futura migração versionada.
+- O projeto passa a ser tratado como Android-first. A versão web em `work/app` fica como protótipo funcional, mas a implementação principal agora é o app Android nativo em `app/`.
+- A primeira versão Android usa UI programática com APIs nativas do Android, sem Compose, para reduzir dependências e garantir compilação no ambiente atual.
+- A melhoria de layout manteve UI programática para evitar novas dependências antes de estabilizar a arquitetura.
+- A persistência Android usa `SharedPreferences` com payload criptografado por AES-GCM e chave derivada da senha mestre com PBKDF2-HMAC-SHA256.
+- Backup automático Android foi desativado para preferências locais, evitando cópia casual de blobs sensíveis antes de existir uma estratégia de backup criptografado própria.
+- A primeira versão foi implementada como app web estático sem framework para reduzir dependências e facilitar execução em Android/WebView.
+- Dados locais são salvos em `localStorage` somente como blob criptografado com AES-GCM.
+- A chave de criptografia é derivada da senha mestre com PBKDF2-SHA256 e salt aleatório.
+- A senha mestre não é armazenada em texto puro. A validação usa um verificador criptografado.
+- A estrutura de dados mantém `vaults[]`, e cada cofre contém `secrets[]`, evitando vazamento acidental entre cofres.
+- A sincronização externa, backup remoto e integração celular-computador não foram implementadas ainda, mas a persistência centralizada em `persistData()` facilita trocar/adicionar adaptadores no futuro.
+- A conversão Base64 dos blobs criptografados usa processamento em blocos para evitar estouro com bases maiores.
+
+## Vantagens da solução inicial
+
+- Funciona sem build, reduzindo risco operacional nesta fase.
+- Compatível com navegador Android e com empacotamento posterior.
+- Segurança local realista para MVP: não promete proteção absoluta, mas evita armazenamento de dados sensíveis em claro.
+- Estrutura simples de evoluir para IndexedDB, API externa ou camada nativa Android.
+
+## Desvantagens / limites conhecidos
+
+- O protocolo atual limita o payload a 255 bytes por usar um unico byte de tamanho.
+- O app confirma sucesso quando a escrita USB termina sem erro; ainda nao existe ACK do RP2040.
+- O app principal nao possui mais diagnostico serial visivel; investigacoes devem ser feitas no POC separado.
+- A versao final ainda nao possui ACK do RP2040; ela valida ate a escrita local na serial USB.
+- Se o painel indicar bytes enviados sem erro e nada aparecer no PC, a suspeita permanece no trecho CP2102 -> UART -> firmware RP2040 -> HID/PC.
+- Campo manual de payload existe para teste externo; deve ser usado somente com dados falsos.
+- Debug Serial ainda nao confirma se o RP2040 recebeu e transformou os bytes em HID; ele confirma ate a escrita USB local no CP2102.
+- O teste fisico ainda depende do firmware do RP2040 ler UART no mesmo baud rate escolhido e digitar via HID no PC.
+- Se Android escrever bytes mas nada aparecer no PC, a causa provavel fica entre UART, baud rate, firmware RP2040 ou foco do campo de texto no PC.
+- O envio real depende do RP2040 aparecer para o Android como serial USB/CDC compativel; HID teclado puro ainda nao e suportado para recepcao de senha.
+- A senha existe como `String` enquanto os dados do cofre estao desbloqueados em memoria; a Sprint 6 limpa apenas o `ByteArray` temporario de transmissao.
+- Ainda nao ha protocolo com ACK/NACK do RP2040, entao o app informa sucesso quando a escrita USB local termina sem erro.
+- O diagnostico bruto depende do que a ROM/OEM expoe via `UsbManager.deviceList`; se o sistema tratar o HID somente como input interno, o app pode receber lista vazia.
+- Sprint 5.2 nao envia dados e nao valida comunicacao com o RP2040; ela serve para descobrir a visibilidade USB real do app.
+- O app ainda nao sabe enviar texto por HID, porque isso exige um protocolo definido no firmware do RP2040; nesta sprint ele apenas diagnostica e informa a limitacao.
+- A deteccao real ainda precisa ser registrada no celular com o RP2040 conectado para confirmar VID/PID, interfaces e endpoints do firmware atual.
+- Se o firmware do RP2040 expuser apenas HID teclado para o Android, o envio serial pelo app nao sera possivel sem alterar o firmware ou implementar protocolo HID especifico.
+- A comunicacao USB com o RP2040 ainda precisa ser validada no hardware fisico real; neste ambiente nao havia celular/emulador conectado.
+- A Sprint 5 nao implementa envio de segredos reais, pareamento, protocolo assinado, confirmacao do RP2040 nem configuracao de baud rate pela UI.
+- A deteccao automatica ao conectar USB ainda nao abre a tela por intent filter; o usuario testa pela secao "Conexao USB".
+
+- `FLAG_SECURE` pode impedir screenshots legítimos para suporte, mas é adequado para um app de segredos.
+- A limpeza de clipboard só remove o conteúdo se ele ainda for o mesmo copiado pelo app; se o usuário copiar outra coisa, o app não interfere.
+- Biometria foi corrigida para ser robusta, mas ainda deve ser testada novamente em celular real porque depende de hardware/ROM/OEM.
+- Testes instrumentados foram compilados, mas não executados neste ambiente por ausência de dispositivo/emulador conectado.
+- Fluxos reais de biometria, Google Drive, screenshots/preview e clipboard dependem do checklist manual em celular real.
+- A biometria atual melhora a usabilidade, mas ainda deve ser endurecida futuramente usando chave do Keystore vinculada a autenticação por operação (`CryptoObject`) para maior resistência contra comprometimento local.
+- Biometria usa a API de plataforma disponível em Android 9+ nesta versão; dispositivos antigos continuam usando senha mestre.
+- Testes de biometria e fluxo real de arquivos dependem de dispositivo/emulador e ainda não foram cobertos por testes instrumentados.
+- Backup importado substitui os dados locais; ainda não há fluxo de merge.
+- Busca atual filtra somente dentro do cofre aberto; ainda não existe busca global em todos os cofres.
+- O campo de descrição já existe no modelo Android nativo, mas o protótipo web antigo não foi atualizado para ele.
+- Ainda não há testes instrumentados cobrindo migração/compatibilidade de blobs criptografados reais em dispositivo.
+- A UI continua programática; a separação arquitetural melhorou, mas a camada visual ainda pode ser modularizada em componentes menores.
+- `localStorage` não é ideal para grandes volumes; IndexedDB deve ser considerado antes de anexos ou muitos registros.
+- PBKDF2 em JavaScript protege melhor que hash simples, mas Argon2 via biblioteca auditada pode ser avaliado futuramente.
+- Não há biometria, recuperação de senha mestre nem backup/exportação ainda.
+- Clipboard depende das permissões do navegador e de contexto seguro.
+
+## Versão Windows e sincronização Bluetooth - 2026-06-06
+
+### Funcionalidades implementadas
+
+- Aplicação Windows 10/11 em WPF e .NET 8 para consultar uma cópia local do cofre.
+- Sincronização manual bidirecional por Bluetooth Low Energy.
+- Android atua como servidor GATT e Windows como cliente GATT.
+- Pareamento de sessão por código temporário de seis dígitos, nonce aleatório e HMAC-SHA256.
+- Transferência somente do backup criptografado AES-GCM; a senha mestre nunca é enviada.
+- Cópia recebida permanece criptografada em `%LOCALAPPDATA%\CofreDeSegredos\cofre.cofrebackup`.
+- Windows desbloqueia a cópia com a mesma senha mestre e permite consultar credenciais.
+- Importação no Android bloqueia o app imediatamente para exigir nova validação da senha mestre.
+
+### Decisões arquiteturais
+
+- A primeira sincronização usa snapshot completo com ações explícitas `Receber do celular` e `Enviar para o celular`.
+- Merge automático foi adiado para não criar perda silenciosa quando Android e Windows forem alterados separadamente.
+- Pacotes BLE usam payload de 16 bytes para permanecer dentro do MTU mínimo padrão.
+- O protocolo e os UUIDs estão documentados em `SYNC_BLUETOOTH_PROTOCOL.md`.
+- A aplicação Windows é separada do projeto Android, mas reutiliza o formato criptográfico existente.
+
+### Limitações atuais
+
+- A comunicação BLE ainda precisa ser validada em celular e PC físicos.
+- Não há resolução de conflitos, sincronização em segundo plano ou histórico de versões.
+- O executável Windows ainda não possui assinatura digital comercial.
+- A disponibilidade do servidor BLE depende de o celular suportar anúncios BLE periféricos.
+
+### Próximos passos
+
+- Validar descoberta, autenticação, recebimento e restauração usando dados falsos.
+- Adicionar confirmação de integridade da transferência completa e versionamento de snapshots.
+- Projetar resolução explícita de conflitos antes de permitir edição simultânea nos dois aparelhos.
+- Assinar e empacotar o aplicativo Windows após a validação física.
+
+## Próximos passos
+
+### Correção BLE de descoberta - 2026-06-06
+
+- O advertising agora começa somente após o Android confirmar o registro do serviço GATT.
+- A tela de sincronização mostra Bluetooth, permissões, suporte a advertising, GATT, advertising e último erro.
+- Permissões Bluetooth são solicitadas em runtime no Android 12+; localização é solicitada nas versões anteriores.
+- Falhas BLE são tratadas sem fechar a Activity e registradas com a tag Logcat `CofreBleSync`.
+- O bloqueio por inatividade fica suspenso enquanto o modo de sincronização está ativo.
+
+- Validar no hardware final o envio de uma senha falsa pelo botao "Enviar para PC".
+- Se necessario, adicionar ACK no firmware CircuitPython sem recolocar ferramentas de debug na interface principal.
+- Manter o POC separado para qualquer nova investigacao de baud/protocolo.
+- Enviar o APK final para teste externo e pedir retorno com foto/texto do painel "Teste de Hardware" apos cada tentativa.
+- Testar no hardware externo em 115200, 57600 e 9600 usando: texto manual, Enter, lento, protocolo AA FF 55 e senha fixa falsa.
+- Se bytes forem enviados sem erro e nada aparecer no PC, comparar pinagem TX/RX/GND, firmware esperado e protocolo do `usb_hid_proxy.uf2`.
+- Se algum payload aparecer no PC, congelar baud/protocolo vencedor e ajustar o envio real do cofre para esse formato.
+- Testar Debug Serial fisicamente com Bloco de Notas aberto no PC e cursor focado.
+- Comecar em 115200, solicitar permissao, abrir porta, enviar teste simples, enviar com Enter e enviar lento.
+- Repetir o teste em 9600 e 57600 se nada aparecer no PC.
+- Copiar o relatorio da tela apos cada tentativa para identificar se Android encontrou CP2102, abriu porta e escreveu bytes.
+- Adicionar ACK do firmware RP2040 na proxima etapa se o Android estiver escrevendo bytes corretamente.
+- Testar "Enviar para PC" com um segredo de teste, nunca com senha real ate validar o firmware do RP2040.
+- Implementar ACK/NACK no firmware RP2040 antes de considerar o envio confiavel para uso real.
+- Definir protocolo de enquadramento da senha se o firmware precisar de delimitador, tamanho ou confirmacao.
+- Instalar o APK Sprint 5.2 no celular real, tocar em "Atualizar diagnostico USB" com o RP2040 conectado e registrar o relatorio completo.
+- Se `deviceList` vier vazio mesmo com teclado fisico detectado pelo Android, investigar firmware/descritores USB do RP2040 e possiveis restricoes da ROM para dispositivos HID/input.
+- Se `deviceList` listar o RP2040, usar VID/PID/interfaces/endpoints para decidir a proxima estrategia: CDC Serial, HID custom ou dispositivo composto.
+- Rodar o APK Sprint 5.1 no celular real e copiar o texto completo do diagnostico USB exibido na tela.
+- Se o diagnostico mostrar CDC Serial, testar o botao "Enviar teste" e validar chegada no PC.
+- Se o diagnostico mostrar HID, ajustar o firmware do RP2040 para tambem expor CDC Serial ou definir um protocolo HID bidirecional.
+- Atualizar o firmware RP2040 para confirmar recebimento por ACK antes de qualquer envio de segredo real.
+- Testar no celular real com Android -> RP2040 -> CP2102 -> PC e confirmar se o PC recebe `TESTE_COFRE_123`.
+- Registrar VID/PID real do RP2040/firmware usado no projeto.
+- Definir protocolo Android -> RP2040 antes de permitir envio de segredos reais: delimitadores, ACK/NACK, timeout, cancelamento e confirmacao visual.
+- Adicionar configuracao de baud rate e logs tecnicos controlados na tela "Conexao USB".
+- Avaliar intent filter USB para abrir/atualizar a tela quando o RP2040 for conectado.
+
+- Retestar biometria no celular real usado no bug original.
+- Adicionar opção visual para desativar biometria.
+- Considerar uso de `CryptoObject` com chave auth-bound por operação em uma sprint futura de hardening.
+- Executar `:app:connectedDebugAndroidTest` com celular/emulador conectado.
+- Preencher o checklist manual no celular real e registrar resultados.
+- Automatizar testes de Storage Access Framework com ambiente instrumentado dedicado.
+- Endurecer biometria com Keystore auth-bound por operação e `CryptoObject`.
+- Adicionar testes instrumentados para BiometricPrompt em emulador/dispositivo compatível.
+- Adicionar teste instrumentado de exportação/importação via Storage Access Framework.
+- Implementar tela de configurações dedicada em vez de ações diretas na tela principal.
+- Criar opção de desativar biometria manualmente pela UI.
+- Adicionar verificação opcional de senha mestre antes de importar backup.
+- Adicionar busca global na tela principal, se fizer sentido para uso real.
+- Adicionar opção de revelar/ocultar senha durante edição e visualização.
+- Adicionar testes instrumentados de UI para edição e busca em dispositivo/emulador.
+- Ampliar testes unitários para `CryptoManager` e `VaultStorage`.
+- Criar testes de compatibilidade carregando um JSON legado criptografado.
+- Dividir a UI em componentes/telas menores dentro de `ui/`.
+- Migrar camada de armazenamento para um módulo/adaptador dedicado.
+- Separar a lógica Android em camadas (`crypto`, `storage`, `vaults`, `ui`) antes de aumentar o número de telas.
+- Melhorar a UI nativa com Compose quando as dependências estiverem estabilizadas.
+- Adicionar testes instrumentados Android para criação de senha, criação de cofre e isolamento de segredos.
+- Implementar exportação/importação criptografada.
+- Adicionar testes automatizados de fluxo principal.
+- Preparar empacotamento Android com Capacitor ou WebView nativo.
+- Planejar sincronização com API externa sem misturar chaves entre cofres.
+- Instalar/disponibilizar navegador Playwright no ambiente local para executar `work/smoke-test.mjs` de ponta a ponta.

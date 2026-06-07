@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#101820">
+    <title>Cofre de Segredos</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="app" class="app-shell" aria-live="polite"></main>
+
+    <template id="auth-template">
+      <section class="auth-screen">
+        <div class="brand-block">
+          <span class="brand-mark" aria-hidden="true">◆</span>
+          <div>
+            <h1>Cofre de Segredos</h1>
+            <p id="auth-subtitle"></p>
+          </div>
+        </div>
+
+        <form id="auth-form" class="panel auth-panel" autocomplete="off">
+          <label>
+            <span>Senha mestre</span>
+            <input id="master-password" type="password" minlength="8" required autocomplete="current-password">
+          </label>
+          <label id="confirm-group" hidden>
+            <span>Confirmar senha mestre</span>
+            <input id="confirm-password" type="password" minlength="8" autocomplete="new-password">
+          </label>
+          <p id="auth-error" class="form-error" role="alert"></p>
+          <button class="primary-button" type="submit"></button>
+        </form>
+      </section>
+    </template>
+
+    <template id="vault-template">
+      <section class="vault-screen">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Cofres</p>
+            <h1>Cofre de Segredos</h1>
+          </div>
+          <div class="topbar-actions">
+            <button id="settings-button" class="icon-button" type="button" title="Configurações" aria-label="Configurações">⚙</button>
+            <button id="lock-button" class="icon-button danger" type="button" title="Bloquear" aria-label="Bloquear">⏻</button>
+          </div>
+        </header>
+
+        <section id="settings-panel" class="settings-panel" hidden>
+          <div>
+            <strong>Segurança ativa</strong>
+            <p>Dados locais criptografados com chave derivada da senha mestre. Bloqueio automático após inatividade.</p>
+          </div>
+          <label>
+            <span>Bloqueio automático</span>
+            <select id="lock-timeout">
+              <option value="60000">1 minuto</option>
+              <option value="300000">5 minutos</option>
+              <option value="900000">15 minutos</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="toolbar">
+          <button id="new-vault-button" class="primary-button" type="button">+ Novo cofre</button>
+        </section>
+
+        <section id="vault-list" class="vault-grid" aria-label="Lista de cofres"></section>
+      </section>
+    </template>
+
+    <template id="vault-card-template">
+      <article class="vault-card">
+        <button class="card-main" type="button">
+          <span class="vault-initial"></span>
+          <span class="vault-name"></span>
+          <span class="vault-count"></span>
+        </button>
+        <button class="card-delete" type="button" title="Excluir cofre" aria-label="Excluir cofre">×</button>
+      </article>
+    </template>
+
+    <template id="vault-detail-template">
+      <section class="detail-screen">
+        <header class="topbar">
+          <button id="back-button" class="icon-button" type="button" title="Voltar" aria-label="Voltar">←</button>
+          <div class="detail-title">
+            <p class="eyebrow">Cofre</p>
+            <h1 id="detail-vault-name"></h1>
+          </div>
+          <button id="detail-lock-button" class="icon-button danger" type="button" title="Bloquear" aria-label="Bloquear">⏻</button>
+        </header>
+
+        <section class="toolbar">
+          <button id="new-secret-button" class="primary-button" type="button">+ Novo segredo</button>
+        </section>
+
+        <section id="secret-list" class="secret-list" aria-label="Lista de segredos"></section>
+      </section>
+    </template>
+
+    <template id="secret-card-template">
+      <article class="secret-card">
+        <div class="secret-header">
+          <div>
+            <h2 class="secret-title"></h2>
+            <p class="secret-user"></p>
+          </div>
+          <button class="secret-delete icon-button danger" type="button" title="Excluir segredo" aria-label="Excluir segredo">×</button>
+        </div>
+        <dl class="secret-fields"></dl>
+      </article>
+    </template>
+
+    <template id="modal-template">
+      <div class="modal-backdrop" role="presentation">
+        <form class="modal" role="dialog" aria-modal="true"></form>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>

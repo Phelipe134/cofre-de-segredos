@@ -1,0 +1,89 @@
+<Window x:Class="CofreDeSegredos.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cofre de Segredos" Width="1000" Height="700"
+        MinWidth="820" MinHeight="560"
+        Background="{StaticResource BackgroundBrush}">
+  <Grid Margin="32">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="290"/>
+      <ColumnDefinition Width="24"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Border Grid.Column="0" Background="White" BorderBrush="{StaticResource BorderBrush}"
+            BorderThickness="1" CornerRadius="28" Padding="24">
+      <StackPanel>
+        <TextBlock Text="COFRE DE SEGREDOS" Foreground="{StaticResource GoldBrush}"
+                   FontSize="11" FontWeight="SemiBold"/>
+        <TextBlock Text="Sincronização" FontSize="28" FontWeight="SemiBold" Margin="0,8,0,6"/>
+        <TextBlock Text="Conecte ao celular por Bluetooth e mantenha uma cópia criptografada neste PC."
+                   Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" Margin="0,0,0,24"/>
+
+        <Button x:Name="ScanButton" Content="Procurar celular" Click="Scan_Click"/>
+        <TextBlock Text="Código exibido no celular" Margin="0,20,0,6" Foreground="{StaticResource MutedBrush}"/>
+        <TextBox x:Name="PairingCodeBox" FontSize="24" MaxLength="6" Padding="12"
+                 HorizontalContentAlignment="Center"/>
+        <Button x:Name="ConnectButton" Content="Conectar e autenticar" Click="Connect_Click"
+                Margin="0,14,0,0"/>
+        <Separator Margin="0,22"/>
+        <Button Content="Receber do celular" Click="Pull_Click"/>
+        <Button Content="Enviar para o celular" Click="Push_Click" Margin="0,10,0,0"/>
+        <TextBlock x:Name="StatusText" Text="Bluetooth ainda não iniciado."
+                   Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" Margin="0,22,0,0"/>
+      </StackPanel>
+    </Border>
+
+    <Grid Grid.Column="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="18"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Border Background="#1A1C1E" CornerRadius="28" Padding="26">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
+          </Grid.ColumnDefinitions>
+          <StackPanel>
+            <TextBlock Text="CÓPIA LOCAL CRIPTOGRAFADA" Foreground="{StaticResource GoldBrush}"
+                       FontSize="11" FontWeight="SemiBold"/>
+            <TextBlock x:Name="BackupInfoText" Text="Nenhum backup sincronizado"
+                       Foreground="#F8F7F4" FontSize="22" FontWeight="SemiBold" Margin="0,8,0,0"/>
+          </StackPanel>
+          <StackPanel Grid.Column="1">
+            <PasswordBox x:Name="MasterPasswordBox" Padding="10"/>
+            <Button Content="Desbloquear no PC" Click="Unlock_Click" Margin="0,10,0,0"/>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <Border Grid.Row="2" Background="White" BorderBrush="{StaticResource BorderBrush}"
+              BorderThickness="1" CornerRadius="28" Padding="22">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Text="Credenciais" FontSize="22"
+                     FontWeight="SemiBold" Margin="0,0,0,14"/>
+          <ListView x:Name="CredentialList" BorderThickness="0">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <Grid Margin="4,8">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <StackPanel>
+                    <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource MutedBrush}"/>
+                  </StackPanel>
+                  <Button Grid.Column="1" Content="Copiar senha" Tag="{Binding Password}"
+                          Click="CopyPassword_Click"/>
+                </Grid>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
+        </DockPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>
