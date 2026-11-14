@@ -85,7 +85,7 @@ public partial class MainWindow : Window
         catch (Exception error)
         {
             StatusText.Text = error.Message;
-            MessageBox.Show(error.Message, "Cofre de Segredos", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(error.Message, "Cifra", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         finally
         {

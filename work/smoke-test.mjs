@@ -52,7 +52,7 @@ await page.click("#detail-lock-button");
 await page.fill("#master-password", "SenhaMestre123!");
 await page.click("button.primary-button");
 const unlockedTitle = await page.locator("h1").first().textContent();
-if (!unlockedTitle.includes("Cofre de Segredos")) {
+if (!unlockedTitle.includes("Cifra")) {
   throw new Error("Falha ao desbloquear o cofre apos logout.");
 }
 

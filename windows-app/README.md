@@ -1,6 +1,6 @@
-# Cofre de Segredos para Windows
+# Cifra para Windows
 
-Aplicativo Windows 10/11 para receber uma cópia criptografada do Cofre de Segredos por Bluetooth Low Energy.
+Aplicativo Windows 10/11 para receber uma cópia criptografada do Cifra (app Android) por Bluetooth Low Energy.
 
 ## Como usar
 

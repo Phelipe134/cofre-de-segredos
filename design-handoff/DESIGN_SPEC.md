@@ -1,4 +1,4 @@
-# Cofre de Segredos — Design Spec (Premium Orgânico)
+# Cifra — Design Spec (Premium Orgânico)
 
 Documento de referência para o app Android (Kotlin / Jetpack Compose).
 A meta é manter o mesmo "feel" do protótipo web: premium, calmo, orgânico,

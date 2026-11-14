@@ -385,7 +385,7 @@ class MainActivity : FragmentActivity() {
                 CircleIcon(Icons.Outlined.Shield, Gold, GoldSoft, 64.dp)
                 Spacer(Modifier.height(Spacing.lg))
                 Text(
-                    if (firstAccess) "Crie seu cofre" else "Cofre de Segredos",
+                    if (firstAccess) "Crie seu cofre" else "Cifra",
                     style = MaterialTheme.typography.displayLarge
                 )
                 Spacer(Modifier.height(Spacing.sm))
@@ -1081,7 +1081,7 @@ class MainActivity : FragmentActivity() {
             SettingsSection("SOBRE") {
                 SettingsRow(
                     Icons.Outlined.Shield,
-                    "Cofre de Segredos",
+                    "Cifra",
                     "Seus dados ficam guardados apenas neste aparelho."
                 )
             }
@@ -1144,7 +1144,7 @@ class MainActivity : FragmentActivity() {
             )
             Spacer(Modifier.height(Spacing.sm))
             Text(
-                "Abra o Cofre de Segredos no Windows, procure o celular e informe o código temporário.",
+                "Abra o Cifra no Windows, procure o celular e informe o código temporário.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MutedForeground
             )

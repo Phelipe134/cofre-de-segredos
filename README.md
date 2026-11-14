@@ -1,6 +1,6 @@
-# Cofre de Segredos
+# Cifra
 
-Aplicativo Android para guardar senhas e informações pessoais **criptografadas no próprio aparelho**, com desbloqueio por senha mestre ou biometria e sincronização com um app de Windows por Bluetooth.
+**Gerenciador de senhas para Android.** Guarda senhas e informações pessoais **criptografadas no próprio aparelho**, com desbloqueio por senha mestre ou biometria e sincronização com um app de Windows por Bluetooth.
 
 Projeto pessoal de estudo em segurança da informação, desenvolvido com apoio de ferramentas de IA.
 

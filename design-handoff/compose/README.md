@@ -1,4 +1,4 @@
-# Compose Theme — Cofre de Segredos
+# Compose Theme — Cifra
 
 Arquivos para colar em `app/src/main/java/com/example/cofredesegredos/ui/theme/`.
 Renomeie o package se o seu app usar outro.

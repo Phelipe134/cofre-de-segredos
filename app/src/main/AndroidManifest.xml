@@ -15,7 +15,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="false"
         android:icon="@drawable/launcher_fg"
-        android:label="Credenciais"
+        android:label="Cifra"
         android:roundIcon="@drawable/launcher_fg"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
